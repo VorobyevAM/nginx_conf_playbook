@@ -9,7 +9,7 @@ pipeline {
         stage('Stop nginx') {
             steps {
             withCredentials([sshUserPrivateKey(credentialsId: 'NGINX_SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" -t stop -vvv --private-key $PRIVATE'
+                sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" -t stop --private-key $PRIVATE -vvvv'
                 }
             }
         }
