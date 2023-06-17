@@ -1,8 +1,6 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'TOPIC_NAME')
-        string(name: 'KAFKA_SERVER')
         choice(name: 'SERVER', choices: ['nginx1, nginx2'])
         choice(name: 'ACTION', choices: ['stop, start, reload'])
     }
@@ -16,13 +14,13 @@ pipeline {
 
         stage('Stop nginx') {
             steps {
-                  sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${HOST}" -t stop'
+                  sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" -t stop'
             }
         }
 
         stage('Start nginx') {
             steps {
-                  sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${HOST}" -t start'
+                  sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" -t start'
             }
         }
     }
