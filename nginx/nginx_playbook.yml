@@ -1,0 +1,10 @@
+---
+- hosts: "{{ host }}"
+  become: true
+  tasks:
+    - name: Add repository
+      command: "sudo systemctl start nginx.service"
+      tags: start
+    - name: Install the latest version of Postgree
+      command: "sudo systemctl stop nginx.service"
+      tags: stop

@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'TOPIC_NAME')
+        string(name: 'KAFKA_SERVER')
+        choice(name: 'SERVER', choices: ['nginx1, nginx2'])
+        choice(name: 'ACTION', choices: ['stop, start, reload'])
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: "git@github.com:VorobyevAM/jenkinsansiblebook.git", credentialsId: 'github_cred'
+            }
+        }
+
+        stage('Stop nginx') {
+            steps {
+                  sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${HOST}" -t stop'
+            }
+        }
+
+        stage('Start nginx') {
+            steps {
+                  sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${HOST}" -t start'
+            }
+        }
+    }
+}
