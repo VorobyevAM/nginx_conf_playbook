@@ -1,8 +1,8 @@
 pipeline {
     agent any
     parameters {
-        choice(name: 'SERVER', choices: ['nginx1, nginx2'])
-        choice(name: 'ACTION', choices: ['stop, start, reload'])
+        choice(name: 'SERVER', choices: ['nginx1', 'nginx2'])
+        choice(name: 'ACTION', choices: ['stop', 'start', 'reload'])
     }
 
     stages {
