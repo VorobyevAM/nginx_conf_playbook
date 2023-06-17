@@ -1,6 +1,6 @@
 ---
 - hosts: "{{ host }}"
-  become: true
+  remote_user: nginx
   tasks:
     - name: Add repository
       command: "sudo systemctl start nginx.service"
