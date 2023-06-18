@@ -2,10 +2,11 @@
 - hosts: "{{ host }}"
   remote_user: nginx
   gather_facts: false #Выключить сбор информции обо всех подключённых узлах (нодах). При выполнении модуля на хосте он собирает разные факты, включая дисковое пространство, версию и тип операционной системы, hostname машины, количество доступной памяти, архитектуру процессора, IP-адреса, сетевые интерфейсы и их состояние.
+  become: true
   tasks:
     - name: Stop nginx
-      command: "sudo systemctl start nginx.service"
+      command: "systemctl start nginx.service"
       tags: start
     - name: Stop nginx
-      command: "sudo systemctl stop nginx.service"
+      command: "systemctl stop nginx.service"
       tags: stop
