@@ -6,6 +6,6 @@
     - name: Stop nginx
       command: "sudo systemctl start nginx.service"
       tags: start
-    - name: Install the latest version of Postgree
+    - name: Stop nginx
       command: "sudo systemctl stop nginx.service"
-      tags: Start nginx
+      tags: stop
