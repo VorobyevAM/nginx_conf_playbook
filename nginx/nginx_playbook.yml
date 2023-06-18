@@ -2,9 +2,9 @@
 - hosts: "{{ host }}"
   remote_user: nginx
   tasks:
-    - name: Add repository
+    - name: Stop nginx
       command: "sudo systemctl start nginx.service"
       tags: start
     - name: Install the latest version of Postgree
       command: "sudo systemctl stop nginx.service"
-      tags: stop
+      tags: Start nginx

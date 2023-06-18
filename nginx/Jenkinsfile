@@ -3,20 +3,23 @@ pipeline {
     parameters {
         choice(name: 'SERVER', choices: ['nginx_1', 'nginx_2'])
         choice(name: 'ACTION', choices: ['stop', 'start', 'reload'])
+        choice(name: 'DETAILS', choices: ['','-v','-vv','-vvv','-vvvv'])
     }
 
     stages {
         stage('Stop nginx') {
             steps {
             withCredentials([sshUserPrivateKey(credentialsId: 'NGINX_SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" -t stop --private-key $PRIVATE -vvvv'
+                sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" -t stop --private-key $PRIVATE ${DETAILS}'
                 }
             }
         }
 
         stage('Start nginx') {
             steps {
-                  sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" -t start --private-key $PRIVATE -vvvv'
+            withCredentials([sshUserPrivateKey(credentialsId: 'NGINX_SSH_CRED', keyFileVariable: 'PRIVATE')]){
+                  sh 'ansible-playbook nginx/nginx_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" -t start --private-key $PRIVATE ${DETAILS}'
+                  }
             }
         }
     }
