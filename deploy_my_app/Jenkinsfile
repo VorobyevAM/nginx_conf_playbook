@@ -23,5 +23,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Copy app files') {
+            steps {
+             withCredentials([sshUserPrivateKey(credentialsId: 'NGINX_SSH_CRED', keyFileVariable: 'PRIVATE')]){
+                 sh 'ansible-playbook deploy_my_app/copy_files.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}"'
+                 }
+            }
+        }
+
     }
 }
