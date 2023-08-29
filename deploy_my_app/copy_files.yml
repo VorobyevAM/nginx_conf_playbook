@@ -3,5 +3,5 @@
   remote_user: root
   gather_facts: false #Выключить сбор информции обо всех подключённых узлах (нодах). При выполнении модуля на хосте он собирает разные факты, включая дисковое пространство, версию и тип операционной системы, hostname машины, количество доступной памяти, архитектуру процессора, IP-адреса, сетевые интерфейсы и их состояние.
   tasks:
-    - name: copy html file
-      copy: src=/tmp/myapp/my_samle_server_app/ dest=/tmp/myapp/my_samle_server_app
+    - name: copy files
+      copy: src=/tmp/myapp/my_samle_server_app/ dest=/tmp/myapp/my_samle_server_app recursive=yes
