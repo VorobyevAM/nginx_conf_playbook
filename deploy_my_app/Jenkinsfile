@@ -18,7 +18,7 @@ pipeline {
                 dir('/tmp/myapp') {
                     checkout([$class: 'GitSCM',
                         branches: [[name: 'main']],
-                        userRemoteConfigs: [[url: 'https://github.com/VorobyevAM/learn_python.git', credentialsId: 'github_cred']]
+                        userRemoteConfigs: [[url: 'git@github.com:VorobyevAM/learn_python.git', credentialsId: 'github_cred']]
                     ])
                 }
             }
