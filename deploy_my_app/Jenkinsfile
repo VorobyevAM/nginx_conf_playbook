@@ -35,7 +35,7 @@ pipeline {
         stage('Stop app') {
             steps {
              withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                 sh 'ansible-playbook deploy_my_app/stop.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}" --ask-sudo-pass'
+                 sh 'ansible-playbook deploy_my_app/stop.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}" --ask-become-pass'
                  }
             }
         }
@@ -43,7 +43,7 @@ pipeline {
         stage('Start app') {
             steps {
              withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                 sh 'ansible-playbook deploy_my_app/start.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}" --ask-sudo-pass'
+                 sh 'ansible-playbook deploy_my_app/start.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}" --ask-become-pass'
                  }
             }
         }
