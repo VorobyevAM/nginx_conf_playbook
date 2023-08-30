@@ -1,0 +1,10 @@
+---
+- hosts: "{{ host }}"
+  gather_facts: false #Выключить сбор информции обо всех подключённых узлах (нодах). При выполнении модуля на хосте он собирает разные факты, включая дисковое пространство, версию и тип операционной системы, hostname машины, количество доступной памяти, архитектуру процессора, IP-адреса, сетевые интерфейсы и их состояние.
+  tasks:
+    - name: Activate env
+      command: "source /opt/myapp/my_env/bin/activate"
+    - name: Install requirements
+      command: "pip install -r /opt/myapp/requirements.txt"
+    - name: Deactivate env
+      command: "deactivate"
