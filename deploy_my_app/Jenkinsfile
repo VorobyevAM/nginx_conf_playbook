@@ -27,7 +27,7 @@ pipeline {
         stage('Edit virtual env') {
             steps {
              withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                 sh 'ansible-playbook deploy_my_app/python_env.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}"'
+                 sh 'date'
                  }
             }
         }
