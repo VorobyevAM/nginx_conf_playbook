@@ -27,7 +27,17 @@ pipeline {
         stage('Edit virtual env') {
             steps {
              withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                 sh 'date'
+                 sh 'source /opt/myapp/my_env/bin/activate'
+                 }
+            }
+            steps {
+             withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
+                 sh 'pip install -r /opt/myapp/requirements.txt'
+                 }
+            }
+            steps {
+             withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
+                 sh 'deactivate'
                  }
             }
         }
