@@ -32,10 +32,18 @@ pipeline {
             }
         }
 
+        stage('Edit virtual env') {
+            steps {
+             withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
+                 sh 'date'
+                 }
+            }
+        }
+
         stage('Stop app') {
             steps {
              withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                 sh 'ansible-playbook deploy_my_app/stop.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}" --sudo-pass="myapp"'
+                 sh 'ansible-playbook deploy_my_app/stop.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}"'
                  }
             }
         }
@@ -43,7 +51,7 @@ pipeline {
         stage('Start app') {
             steps {
              withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                 sh 'ansible-playbook deploy_my_app/start.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}" --sudo-pass="myapp"'
+                 sh 'ansible-playbook deploy_my_app/start.yml -i deploy_my_app/hosts.yml -e "host=${SERVER}"'
                  }
             }
         }
