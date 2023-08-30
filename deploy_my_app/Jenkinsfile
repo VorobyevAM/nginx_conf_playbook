@@ -51,7 +51,7 @@ pipeline {
         stage('Clear tmp files') {
             steps {
              withCredentials([sshUserPrivateKey(credentialsId: 'SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                 sh 'rm -r /tmp/myapp'
+                 sh 'rm -rf /tmp/myapp'
                  }
             }
         }
