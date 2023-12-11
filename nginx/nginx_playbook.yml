@@ -9,3 +9,6 @@
     - name: Stop nginx
       command: "sudo systemctl stop nginx.service"
       tags: stop
+    - name: Restart nginx
+      command: "sudo systemctl restart nginx.service"
+      tags: restart
