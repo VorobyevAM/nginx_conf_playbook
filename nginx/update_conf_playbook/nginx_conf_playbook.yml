@@ -19,5 +19,5 @@
         mode: u=rw,g=r,o=r
     - name: Test configuration
       command: "/opt/nginx/sbin/nginx -t"
-    - name: Restart nginx
-      command: "sudo systemctl restart nginx.service"
+    - name: Reload nginx
+      command: "/opt/nginx/sbin/nginx -s reload"
