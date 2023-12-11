@@ -5,7 +5,7 @@
   tasks:
     - name: Start nginx
       ansible.builtin.copy:
-        src: nginx/conf/nginx.conf
+        src: ./nginx/conf/nginx.conf
         dest: /opt/nginx/conf/nginx.conf
         owner: nginx
         group: nginx
