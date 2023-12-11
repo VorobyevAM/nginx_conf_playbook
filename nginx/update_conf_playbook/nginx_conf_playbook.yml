@@ -7,5 +7,8 @@
       ansible.builtin.copy:
         src: nginx/conf/nginx.conf
         dest: /opt/nginx/conf/nginx.conf
+        owner: nginx
+        group: nginx
+        mode: u=rw,g=r,o=r
     - name: Test configuration
       command: "/opt/nginx/sbin/nginx -t"
