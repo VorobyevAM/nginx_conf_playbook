@@ -36,10 +36,12 @@ pipeline {
                 submitter "alice,bob"
                 parameters {
                     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                    booleanParam(name: 'BOOL_PARAM', defaultValue: 'true', description: 'WHAT?')
                 }
             }
             steps {
                 echo "Hello, ${PERSON}, nice to meet you."
+                echo "${BOOL_PARAM}"
             }
         }
     }
