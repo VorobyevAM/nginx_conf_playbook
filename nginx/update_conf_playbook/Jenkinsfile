@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     parameters {
@@ -42,6 +43,16 @@ pipeline {
             steps {
                 echo "Hello, ${PERSON}, nice to meet you."
                 echo "${BOOL_PARAM}"
+            }
+        }
+        stage('Check Example') {
+            when {
+                allOf {
+                environment name: 'BOOL_PARAM', value: 'true'
+                }
+            }
+            steps {
+                echo "На предыдущем этапе был выбран true"
             }
         }
     }
