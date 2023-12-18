@@ -6,14 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Update NGINX configs') {
-            steps {
-            withCredentials([sshUserPrivateKey(credentialsId: 'NGINX_SSH_CRED', keyFileVariable: 'PRIVATE')]){
-                sh 'ansible-playbook nginx/update_conf_playbook/nginx_conf_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" --private-key $PRIVATE ${DETAILS}'
-                }
-            }
-        }
-    }
         stage('Example Deploy') {
             when {
                 environment name: 'SERVER', value: 'nginx_1'
@@ -22,6 +14,14 @@ pipeline {
                 echo 'Deploying nginx_1'
             }
         }
+        stage('Update NGINX configs') {
+            steps {
+            withCredentials([sshUserPrivateKey(credentialsId: 'NGINX_SSH_CRED', keyFileVariable: 'PRIVATE')]){
+                sh 'ansible-playbook nginx/update_conf_playbook/nginx_conf_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" --private-key $PRIVATE ${DETAILS}'
+                }
+            }
+        }
+    }
 
     post {
           cleanup {
