@@ -48,11 +48,11 @@ pipeline {
         stage('Check Example') {
             when {
                 allOf {
-                environment name: 'BOOL_PARAM', value: 'true'
+                params name: 'BOOL_PARAM', value: 'true'
                 }
             }
             steps {
-                echo "На предыдущем этапе был выбран ${BOOL_PARAM}"
+                echo "На предыдущем этапе был выбран ${params.BOOL_PARAM}"
             }
         }
     }
