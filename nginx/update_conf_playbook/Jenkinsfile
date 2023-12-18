@@ -36,6 +36,7 @@ pipeline {
             }
         }
         }
+        }
         stage('Update NGINX configs') {
             when {
                 allOf {
