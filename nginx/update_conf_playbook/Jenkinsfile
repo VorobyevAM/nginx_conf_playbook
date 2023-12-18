@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        choice(name: 'SERVER', choices: ['nginx_2'])
+        choice(name: 'SERVER', choices: ['nginx_2', 'nginx_1'])
         choice(name: 'DETAILS', choices: ['','-v','-vv','-vvv','-vvvv'])
     }
 
@@ -14,6 +14,14 @@ pipeline {
             }
         }
     }
+        stage('Example Deploy') {
+            when {
+                environment name: 'SERVER', value: 'nginx_1'
+            }
+            steps {
+                echo 'Deploying nginx_1'
+            }
+        }
 
     post {
           cleanup {
