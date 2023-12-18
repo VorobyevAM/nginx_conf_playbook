@@ -1,22 +1,28 @@
 pipeline {
     agent any
     parameters {
+        booleanParam(name: 'UPDATE_JOB_CONF', defaultValue: true, description: 'ОБновить конфигурацию')
         choice(name: 'SERVER', choices: ['nginx_2', 'nginx_1'])
         choice(name: 'DETAILS', choices: ['','-v','-vv','-vvv','-vvvv'])
     }
 
     stages {
-        stage('Example Deploy') {
+        stage('Update job configuration') {
             when {
                 allOf {
-                environment name: 'SERVER', value: 'nginx_1'
+                environment name: 'UPDATE_JOB_CONF', value: 'true'
                 }
             }
             steps {
-                echo 'Deploying nginx_1'
+                echo 'Update job configuration'
             }
         }
         stage('Update NGINX configs') {
+            when {
+                allOf {
+                environment name: 'UPDATE_JOB_CONF', value: 'false'
+                }
+            }
             steps {
             withCredentials([sshUserPrivateKey(credentialsId: 'NGINX_SSH_CRED', keyFileVariable: 'PRIVATE')]){
                 sh 'ansible-playbook nginx/update_conf_playbook/nginx_conf_playbook.yml -i nginx/hosts.yml -e "host=${SERVER}" --private-key $PRIVATE ${DETAILS}'
