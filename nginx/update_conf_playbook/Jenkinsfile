@@ -45,11 +45,6 @@ pipeline {
                 echo "${BOOL_PARAM}"
             }
         }
-        stage('Check Example') {
-            steps {
-                echo "На предыдущем этапе был выбран ${params.BOOL_PARAM}"
-            }
-        }
     }
 
     post {
