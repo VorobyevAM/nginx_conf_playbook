@@ -46,11 +46,6 @@ pipeline {
             }
         }
         stage('Check Example') {
-            when {
-                allOf {
-                params name: 'BOOL_PARAM', value: 'true'
-                }
-            }
             steps {
                 echo "На предыдущем этапе был выбран ${params.BOOL_PARAM}"
             }
