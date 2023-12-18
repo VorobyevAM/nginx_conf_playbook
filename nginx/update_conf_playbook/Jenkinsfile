@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('Example Deploy') {
             when {
+                allOf {
                 environment name: 'SERVER', value: 'nginx_1'
+                }
             }
             steps {
                 echo 'Deploying nginx_1'
