@@ -18,6 +18,24 @@ pipeline {
                 echo 'Update job configuration'
             }
         }
+        stage('TEST') {
+            when {
+                allOf {
+                environment name: 'UPDATE_JOB_CONF', value: 'true'
+                }
+            }
+        stages('Update job configuration') {
+            stage('st1'){
+               steps {
+                echo 'Update job configuration'
+            }
+        }
+            stage('st2'){
+               steps {
+                echo 'Update job configuration'
+            }
+        }
+        }
         stage('Update NGINX configs') {
             when {
                 allOf {
